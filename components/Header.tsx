@@ -42,7 +42,7 @@ function Header() {
         <div className="mx-6 flex items-center justify-center space-x-6 whitespace-nowrap text-xs text-white">
           <div
             className="link outline-none focus:outline-none"
-            onClick={!session ? () => signIn : () => signOut}
+            onClick={!session ? () => signIn() : () => signOut()}
           >
             <p>{session ? `Hello, ${session?.user?.name}` : 'Sign In'}</p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
