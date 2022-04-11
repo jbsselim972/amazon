@@ -4,8 +4,16 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/outline';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { selectItems } from '../slices/basketSlices';
 
 function Header() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const items = useSelector(selectItems);
+
   return (
     <header>
       {/**Top nav */}
@@ -13,6 +21,7 @@ function Header() {
         {/**Logo */}
         <div className="mt-2 flex flex-grow items-center sm:flex-grow-0">
           <Image
+            onClick={() => router.push('/')}
             src="https://links.papareact.com/f90"
             width={150}
             height={40}
@@ -31,8 +40,11 @@ function Header() {
 
         {/**Account & cie */}
         <div className="mx-6 flex items-center justify-center space-x-6 whitespace-nowrap text-xs text-white">
-          <div className="link">
-            <p>Hello Jbsselim</p>
+          <div
+            className="link outline-none focus:outline-none"
+            onClick={!session ? signIn : signOut}
+          >
+            <p>{session ? `Hello, ${session?.user?.name}` : 'Sign In'}</p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
           </div>
 
@@ -41,9 +53,12 @@ function Header() {
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
 
-          <div className="link relative flex items-center">
+          <div
+            onClick={() => router.push('/checkout')}
+            className="link relative flex items-center"
+          >
             <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-yellow-400 text-center font-bold text-black md:right-10">
-              0
+              {items.length}
             </span>
             <ShoppingCartIcon className="h-10" />
             <p className="mt-2 hidden font-extrabold md:inline md:text-sm">

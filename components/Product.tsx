@@ -1,21 +1,47 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { StarIcon } from '@heroicons/react/solid';
+import { useDispatch } from 'react-redux';
+import { addToBasket } from '../slices/basketSlices';
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
 function Product({ id, title, price, description, category, image }: Products) {
+  const dispatch = useDispatch();
+
   const [rating] = useState(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
   );
   const [hasPrime] = useState(Math.random() < 0.5);
 
+  const addItemToBasket = () => {
+    const product = {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      rating,
+      hasPrime,
+    };
+
+    // Sending the product as an action to REDUX Store
+    dispatch(addToBasket(product));
+  };
+
   return (
-    <div className="relative z-30 m-5 flex flex-col bg-white p-10">
+    <div className="relative z-30 m-5 flex flex-col rounded-md bg-white p-10">
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
         {category}
       </p>
-      <Image src={image} height={200} width={200} objectFit="contain" />
+      <Image
+        className="hover:scale-110 hover:transform hover:transition hover:duration-150 hover:ease-out"
+        src={image}
+        height={200}
+        width={200}
+        objectFit="contain"
+      />
       <h4 className="my-3">{title}</h4>
       <div className="flex">
         {Array(rating)
@@ -38,7 +64,9 @@ function Product({ id, title, price, description, category, image }: Products) {
         </div>
       )}
 
-      <button className="buttonam mt-auto">Add to Basket</button>
+      <button onClick={addItemToBasket} className="buttonam mt-auto">
+        Add to Basket
+      </button>
     </div>
   );
 }

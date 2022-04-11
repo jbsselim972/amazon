@@ -9,6 +9,7 @@ interface Products {
       rate: number;
       count: number;
     };
+    hasPrime: boolean
   }
 
   interface Props {

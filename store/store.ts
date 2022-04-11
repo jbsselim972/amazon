@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import basketReducer from '../slices/basketSlices'
 
+// The global store
 export const store = configureStore({
   reducer: {
     basket: basketReducer,
