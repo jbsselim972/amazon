@@ -41,7 +41,7 @@ function CheckoutProduct({
         <p>{title}</p>
         <div className="flex">
           {Array(rating)
-            .fill(null)
+            .fill({ rate: 0, count: 0 })
             .map((_, i) => (
               <StarIcon key={i} className="h-5 text-yellow-500" />
             ))}

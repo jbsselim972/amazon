@@ -17,6 +17,7 @@ function ProductFeed({ products }: Props) {
             category={category}
             image={image}
             rating={rating}
+            hasPrime={false}
           />
         ))}
 
@@ -40,6 +41,7 @@ function ProductFeed({ products }: Props) {
               category={category}
               image={image}
               rating={rating}
+              hasPrime={false}
             />
           ))}
       </div>
@@ -55,6 +57,7 @@ function ProductFeed({ products }: Props) {
             category={category}
             image={image}
             rating={rating}
+            hasPrime={false}
           />
         ))}
     </div>
